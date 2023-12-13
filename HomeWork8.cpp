@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 int task1();
-
-
+int task2();
+int task3();
 
 
 int main()
 {
-	task1();
-	
+	//task1();
+	//task2();
+	task3();
 
 
 
@@ -29,7 +30,7 @@ int task1()
 	int y;                             // Создаем переменную для записи в неё числа из файла
 
 	input = fopen("task1.txt", "r");   // Получаем указатель на файловый поток с файлом по адресу task1.txt и индификатором доступа "r" 
-	if (input == NULL)                 // Проверяем что файл открылся правильно
+	if (input == NULL)                 // Проверяем что файл открылся  и  правильно
 	{
 		printf("Error opening file");  // Если файл не открылся, выводим сообщение об ошибке открытия файла
 		exit(0);
@@ -44,6 +45,69 @@ int task1()
 
 
 
+
+//2.  В файл записаны целые числа, по одному числу в строке.
+// Считайте из файла “f1.txt” построчно все данные.Выведите на экран сумму считанных чисел.
+int task2()
+{
+	FILE* input = NULL;
+	int c, sum = 0;
+	input = fopen("task2.txt", "r");
+	if (input == NULL)
+	{
+		printf("Error opening file");
+		exit(0);
+	}
+	while (fscanf(input, "%d", &c) == 1)
+	{
+		sum += c;
+	}
+	fclose(input);
+	printf("%d", sum);
+	return 0;
+
+}
+//3.  В файл записаны целые числа, по одному числу в строке.
+// Считайте из файла “f1.txt” построчно все данные.
+// Удвойте значение каждого считанного значения и запишите в файл “f2.txt”.
+
+int task3()
+{
+	FILE* input = NULL;
+	FILE* output = NULL;
+	int c;
+	input = fopen("task3.txt", "r");
+	output = fopen("task3.1.txt", "w");
+	if (input == NULL)
+	{
+		printf("Error opening file");
+		exit(0);
+	}
+	while (fscanf(input, "%d", &c)==1)
+	{
+		c *= 2;
+		fprintf(output, "%dn\n", c);
+		printf("%d\n", c);
+	}
+	fclose(input);
+	fclose(output);
+	
+	return 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
@@ -70,3 +134,4 @@ int task1()
 // Перезаписать текст в файл “f1.txt”разделяя на строки, переходить на новую строку после каждого символа “s”.
 //
 
+	
