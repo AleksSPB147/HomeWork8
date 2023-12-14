@@ -5,16 +5,20 @@
 int task1();
 int task2();
 int task3();
+int task4();
+int task5();
+int task6();
 
 
 int main()
 {
+	setlocale(LC_ALL, "RU");
 	//task1();
 	//task2();
-	task3();
-
-
-
+	//task3();
+	//task4();
+	//task5();
+	task6();
 
 
 }
@@ -93,21 +97,141 @@ int task3()
 	fclose(output);
 	
 	return 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+//4.  В файле “f1.txt” записан текст.
+// Считать текст, определить сколько раз в считанном тексте встречается символ “s”, вывести значение на экран.
+
+
+int task4()
+{
+	FILE* input = NULL;
+	int count = 0;
+	int c;
+	input = fopen("task4.txt", "r");
+	if (input == NULL)
+	{
+		printf("Error opening file");
+		exit(0);
+	}
+	do
+	{
+		c = fgetc(input);   //Функция fgets считывает символы из потока и сохраняет их в виде строки в параметр string 
+		if(c == 's')        //до тех пор пока не наступит конец строки или пока не будет достигнут конец файла.
+		{
+			count++;
+		}
+	} while (c != EOF);
+	fclose(input);
+	printf("%d", count);
+	return 0;
+}
+
+
+//5.  Дан файл “f.txt”.Создать два файла “f1.txt” и “f2.txt”,
+// записав в первый из них все четные числа, а во второй – все нечетные(каждое число в отдельной строке).
+
+int task5()
+{
+	FILE* input = NULL;
+	FILE* output1 = NULL;
+	FILE* output2 = NULL;
+	int c;
+	input = fopen("task5.txt", "r");
+	output1 = fopen("task5.1.txt", "w");
+	output2 = fopen("task5.2.txt", "w");
+	if (input == NULL)
+	{
+		printf("Error opening file");
+		exit(0);
+	}
+	while (fscanf(input, "%d", &c) == 1)
+	{
+		if (c % 2 == 0)
+		{
+			fprintf(output1, "%d\n", c);      // Записываем четные числа в файл task5.1
+			//printf("Четные  %d\n", c);      // Для наглядности сразу вывести на экран
+			
+		}
+		else
+			
+		{
+			fprintf(output2, "%d\n", c);      // Записываем не четные числа в файл task5.1
+			//printf("Не четные %d\n", c);    // Для наглядности сразу вывести на экран
+		}
+		
+	}
+	fclose(input);
+	fclose(output1);
+	fclose(output2); 
+	
+	return 0;
+}
+
+
+
+//6.  В файле “f.txt” записан текст.
+// Перезаписать текст в файл “f1.txt”разделяя на строки, переходить на новую строку после каждого символа “s”.
+int task6()
+
+{
+	FILE* input = NULL;
+	FILE* output = NULL;
+	int c;
+	input = fopen("task6.txt", "r");
+	output = fopen("task6.1.txt", "w");
+	if (input == NULL)
+	{
+		printf("Error opening file");
+		exit(0);
+	}
+	do
+	{
+		c = fgetc(input);
+		fprintf(output, "%c", c);
+		if (c == 's')
+		{
+			fprintf(output, "\n");
+			printf("%c\n", c);
+		}
+	} while (c != EOF);
+	fclose(input);
+	fclose(output);
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,4 +258,8 @@ int task3()
 // Перезаписать текст в файл “f1.txt”разделяя на строки, переходить на новую строку после каждого символа “s”.
 //
 
-	
+//Функция fgets считывает символы из потока и сохраняет их в виде строки в параметр string до тех пор пока не наступит конец строки или пока не будет достигнут конец файла.
+//
+//Символ новой строки прекращает работу функции fgets, но он считается допустимым символом, и поэтому он копируется в строку string.
+//
+//Нулевой символ автоматически добавляется в строку str после прочитанных символов, чтобы сигнализировать о конце строки.
